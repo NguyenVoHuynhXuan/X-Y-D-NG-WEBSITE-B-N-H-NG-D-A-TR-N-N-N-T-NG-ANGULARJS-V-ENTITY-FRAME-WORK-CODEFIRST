@@ -1,0 +1,133 @@
+﻿@model uStora.Web.Models.FeedbackViewModel
+@{
+    ViewBag.Title = "Liên hệ với chúng tôi.";
+    ViewBag.MetaKeyword = "liên hệ";
+    ViewBag.MetaDescription = "Thông tin liên hệ của uStora shop";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/googleapis")
+    @Scripts.Render("~/bundles/bsvalidator")
+    <script src="~/Assets/Client/js/app.js"></script>
+    <script src="~/Assets/Client/js/controllers/contact.js"></script>
+}
+<link href="~/Assets/Client/css/overlay.css" rel="stylesheet" />
+
+<div id="overlay">
+    <img class="onLoad-image" src="~/Assets/Client/img/box.gif" />
+</div>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Liên hệ</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        @*maps*@
+        <div class="col-md-6">
+            <input type="hidden" id="hidAddress" value="@Model.ContactDetail.Name <br />Điện thoại: @Model.ContactDetail.Phone<br />Địa chỉ: @Model.ContactDetail.Address" />
+            <input type="hidden" id="hidLat" value="@Model.ContactDetail.Lat" />
+            <input type="hidden" id="hidLng" value="@Model.ContactDetail.Lng" />
+            <input type="hidden" id="hidName" value="@Model.ContactDetail.Name" />
+            @*<div class="container">
+                <div id="map"></div>
+            </div>*@
+        </div>
+
+        <div class="col-md-2">
+            <form class="well form-horizontal contact-form" id="contact-form" role="form" style="margin-left:-600px">
+
+                <fieldset>
+                    <legend>Thông tin cá nhân</legend>
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="fullname" id="fullname" placeholder="Họ và tên" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="text" class="form-control" id="email" placeholder="Địa chỉ Email" name="email" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                <input type="text" class="form-control" id="phone" placeholder="Điện thoại" name="phone" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                <input type="text" class="form-control" id="address" placeholder="Địa chỉ" name="address" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <input type="text" class="form-control" id="website" placeholder="Website hoặc trang cá nhân Facebook" name="website" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text area -->
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <textarea type="text" class="form-control" id="comment" placeholder="Nội dung tin nhắn..." name="comment"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <!-- Success message -->
+                    <div class="alert alert-success hide" role="alert" id="success_message">
+                        Chúc mừng bạn <i class="glyphicon glyphicon-thumbs-up"></i>
+                        Tin nhắn của bạn đã được gửi thành công, chúng tôi sẽ phản hồi lại trong thời gian sớm nhất.
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-12 control-label"></label>
+                        <div class="col-md-12 inputGroupContainer">
+                            <button type="submit" id="btnSend" class="btn btn-warning">Gửi <span class="glyphicon glyphicon-send"></span></button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+
+    </div>
+</div>

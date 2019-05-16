@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Kích hoạt tài khoản thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="breadcrumb-area">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 custom-breadcrumb">
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right" id="tblCartTable">
+                    <div class="woocommerce">
+                        <section class="panel panel-info">
+                            <div class="panel-heading">Kích hoạt tài khoản thành công</div>
+                            <div class="panel-body">Cảm ơn bạn đã đăng ký tài khoản tại uStora. Để đăng nhập @Html.ActionLink("click vào đây.", "Login", "Account")</div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

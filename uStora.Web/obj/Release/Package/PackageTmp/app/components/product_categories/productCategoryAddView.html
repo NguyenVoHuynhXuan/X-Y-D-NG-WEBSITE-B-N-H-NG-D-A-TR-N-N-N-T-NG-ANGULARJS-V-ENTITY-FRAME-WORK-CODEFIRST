@@ -1,0 +1,119 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Thêm mới danh mục sản phẩm
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="products">Sản phẩm</a></li>
+        <li><a ui-sref="product_categories">Danh mục sản phẩm</a></li>
+        <li class="active">Thêm mới</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thông tin danh mục</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddProductCategory" role="form" ng-submit="AddProductCategory()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên danh mục</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" required name="name" ng-change="GetSeoTitle()" ng-model="productCategory.Name" placeholder="tên danh mục">
+                        <span ng-show="frmAddProductCategory.name.$invalid" class="invalid">Phải nhập tên danh mục.</span>
+                        <span ng-show="frmAddProductCategory.name.$error.maxlength" class="invalid">Chỉ nhập tối đa 256 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Tiêu đề SEO</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" required name="alias" ng-model="productCategory.Alias" placeholder="tiêu đề SEO">
+                        <span ng-show="frmAddProductCategory.alias.$invalid" class="invalid">Phải nhập tiêu đề SEO.</span>
+                        <span ng-show="frmAddProductCategory.alias.$error.maxlength" class="invalid">Chỉ nhập tối đa 256 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Mô tả</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ckeditor="ckeditorOptions" ng-maxlength="500" name="description" ng-model="productCategory.Description" placeholder="mô tả"></textarea>
+                        <span ng-show="frmAddProductCategory.description.$error.maxlength" class="invalid">Chỉ nhập 500 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Danh mục cha</label>
+
+                    <div class="col-sm-10">
+                        <select name="parentID" class="form-control" ng-model="productCategory.ParentID" ng-options="option.ID as option.Name for option in flatFolders ">
+                            <option value="">- Chọn danh mục gốc -</option>
+                        </select>
+                        <input type="hidden" name="parentID" ng-model="productCategory.ParentID" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Thứ tự</label>
+
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" required name="displayOrder" ng-model="productCategory.DisplayOrder" placeholder="thứ tự">
+                        <span ng-show="frmAddProductCategory.displayOrder.$invalid" class="invalid">Phải nhập thứ tự</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Hình ảnh</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="256" name="image" ng-model="productCategory.Image" placeholder="hình ảnh">
+                        <button type="button" class="btn btn-default" ng-click="chooseImage()">Chọn ảnh</button>
+                        <span ng-show="frmAddProductCategory.image.$error.maxlength" class="invalid">Chỉ nhập 256 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Meta Keyword</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="150" name="metaKeyword" ng-model="productCategory.MetaKeyword" placeholder="meta keyword">
+                        <span ng-show="frmAddProductCategory.metaDescription.$error.maxlength" class="invalid">Chỉ nhập 150 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Meta Description</label>
+
+                    <div class="col-sm-10">
+                        <textarea name="metaDescription" ckeditor="ckeditorOptions" ng-maxlength="150" class="form-control" ng-model="productCategory.MetaDescription"></textarea>
+                        <span ng-show="frmAddProductCategory.metaDescription.$error.maxlength" class="invalid">Chỉ nhập 150 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" required ng-model="productCategory.Status" ng-checked="productCategory.Status" />Kích hoạt
+                            </label>
+                            <span ng-show="frmAddProductCategory.status.$invalid" class="invalid">Phải chọn trạng thái</span>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="homeFlag" ng-model="productCategory.HomeFlag" ng-checked="productCategory.HomeFlag" />Hiển thị trang chủ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button ui-sref="product_categories"  class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmAddProductCategory.$invalid" class="btn btn-info">Lưu lại</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+    <!-- /.box -->
+</section><!-- /.content -->

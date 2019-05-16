@@ -1,0 +1,118 @@
+﻿@model uStora.Web.Infrastructure.Core.PaginationSet<uStora.Web.Models.WishlistViewModel>
+
+@{
+    ViewBag.Title = "Danh sách các sản phẩm đã mượn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="product-content-right" id="tblCartTable">
+                    <div class="woocommerce">
+                        @if (ViewBag.WishlistDelSuccess != null)
+                        {
+                            <div class="alert alert-success">
+                                <strong>@ViewBag.WishlistDelSuccess</strong>
+                            </div>
+                        }
+                       
+                        <div class="table-responsive">
+                            <table cellspacing="0" class="shop_table cart">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Tên sản phẩm
+                                        </th>
+                                        <th>
+                                            Giá sản phẩm
+                                        </th>
+                                        <th>
+                                            Ngày thêm
+                                        </th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="/product/@item.Product.Alias-@(item.ProductId).htm">@item.Product.Name</a>
+                                            </td>
+                                            <td>
+                                                @item.Product.Price.ToString("c0")
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                                            </td>
+                                            <td style="font-size: 20px">
+                                                <a href="/product/@item.Product.Alias-@(item.ProductId).htm">
+                                                    <i class="fa fa-shopping-cart add-to-cart" id="btnAddToCart" dat-id="@item.ProductId" data-toggle="tooltip" title="Thêm vào giỏ"></i>
+                                                </a>
+                                                <a href="@Url.Action("Delete", "Wishlist", new { @productId = item.ID, onclick="alert('hello')" })">
+                                                    <i class="fa fa-trash text-danger" data-toggle="tooltip" title="Xóa khỏi danh sách"></i>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            @if (Model.TotalPages > 1)
+                            {
+                                // Create numeric links
+                                var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                                var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+                                <nav class="text-center">
+                                    <ul class="pagination">
+                                        @if (Model.Page > 1)
+                {
+                                            <li>
+                                                <a href="?page=1" data-toggle="tooltip" title="Trang đầu" aria-label="First">
+                                                    <i class="fa fa-angle-double-left"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="?page=@(Model.Page-1)" data-toggle="tooltip" title="Trang sau" aria-label="Previous">
+                                                    <i class="fa fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        @for (int i = startPageIndex; i <= endPageIndex; i++)
+                {
+                    if (Model.Page == i)
+                    {
+                                                <li class="active"><a href="?page=@i" data-toggle="tooltip" title="Trang @i">@i</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="?page=@i" data-toggle="tooltip" title="Trang @i">@i</a></li>
+                                            }
+                                        }
+                                        @if (Model.Page < Model.TotalPages)
+                {
+                                            <li>
+                                                <a href="?page=@(Model.Page+1)" data-toggle="tooltip" title="Trang tiếp theo" aria-label="Next">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="?page=@Model.TotalPages" data-toggle="tooltip" title="Trang cuối" aria-label="Last">
+                                                    <i class="fa fa-angle-double-right"></i>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </nav>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

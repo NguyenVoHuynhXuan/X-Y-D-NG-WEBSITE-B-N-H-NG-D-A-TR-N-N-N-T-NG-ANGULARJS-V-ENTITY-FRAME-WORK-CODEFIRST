@@ -1,0 +1,99 @@
+﻿<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="{{authentication.image}}" class="img-circle" alt="ảnh đại diện" />
+        </div>
+        <div class="pull-left info">
+            <p>{{authentication.userName}}</p>
+            <a href="javascript:void(0);"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <li class="header">DANH MỤC QUẢN LÝ</li>
+        <li class="treeview">
+            <a ui-sref="home">
+                <i class="fa fa-home"></i> <span>Trang chủ</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-dashboard"></i>
+                <span>Tổng quan</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a ui-sref="slides"><i class="fa fa-sliders"></i> Slide</a></li>
+                <li><a ui-sref="brands"><i class="fa fa-behance-square"></i> Nhãn hiệu</a></li>
+                <li><a ui-sref="footers"><i class="fa fa-credit-card-alt"></i> Footer</a></li>
+                <li><a ui-sref="feedbacks"><i class="fa fa-feed"></i> Phản hồi</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-cogs"></i>
+                <span>Hệ thống</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a ui-sref="application_users"><i class="fa fa-user"></i> Người dùng</a></li>
+                <li><a ui-sref="application_groups"><i class="fa fa-users"></i> Nhóm người dùng</a></li>
+                <li><a ui-sref="application_roles"><i class="fa fa-get-pocket"></i> Quyền</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-product-hunt"></i>
+                <span>Sản phẩm</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a ui-sref="product_categories"><i class="fa fa-list-ul"></i> Danh mục sản phẩm</a></li>
+                <li><a ui-sref="products"><i class="fa fa-briefcase"></i> Sản phẩm</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-truck"></i>
+                <span>Quản lý chuyển hàng</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a ui-sref="orders"><i class="fa fa-shopping-bag"></i> Quản lý đơn hàng </a></li>
+                <li><a ui-sref="vehicles"><i class="fa fa-bus"></i> Quản lý xe </a></li>
+                <li><a ui-sref="trackorders"><i class="fa fa-car"></i> Phân công chuyển hàng </a></li>
+
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="">
+                <i class="fa fa-area-chart"></i>
+                <span>Thống kê</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a ui-sref="statistic_revenue"><i class="fa fa-line-chart"></i> Thống kê doanh thu</a></li>
+            </ul>
+        </li>
+        <!--<li class="treeview">
+            <a ui-sref="home">
+                <i class="fa fa-recycle"></i> <span>Thùng rác</span>
+            </a>
+        </li>-->
+
+    </ul>
+</section>
+<!-- /.sidebar -->

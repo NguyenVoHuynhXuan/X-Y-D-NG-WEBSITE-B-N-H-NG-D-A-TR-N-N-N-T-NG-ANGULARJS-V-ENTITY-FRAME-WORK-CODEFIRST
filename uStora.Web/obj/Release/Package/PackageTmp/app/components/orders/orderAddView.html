@@ -1,0 +1,100 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Thêm mới đơn hàng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="orders">Đơn hàng</a></li>
+        <li class="active">Thêm mới</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thông tin đơn hàng</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddOrder" role="form" ng-submit="AddOrder()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên người mua hàng</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="100" required name="name" ng-model="order.CustomerName" placeholder="">
+                        <span ng-show="frmAddOrder.name.$invalid" class="invalid">Tên người mua hàng không được để trống</span>
+                        <span ng-show="frmAddOrder.name.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Địa chỉ</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="250" required name="address" ng-model="order.CustomerAddress" placeholder="">
+                        <span ng-show="frmAddOrder.address.$invalid" class="invalid">Địa chỉ không được để trống</span>
+                        <span ng-show="frmAddOrder.address.$error.maxlength" class="invalid">Chỉ nhập tối đa 250 ký tự.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="100" required name="email" ng-model="order.CustomerEmail" placeholder="">
+                        <span ng-show="frmAddOrder.email.$invalid" class="invalid">Email không được để trống</span>
+                        <span ng-show="frmAddOrder.email.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Số điện thoại</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-maxlength="50" required name="phone" ng-model="order.CustomerMobile" placeholder="">
+                        <span ng-show="frmAddOrder.phone.$invalid" class="invalid">Số điện thoại không được để trống</span>
+                        <span ng-show="frmAddOrder.phone.$error.maxlength" class="invalid">Chỉ nhập tối đa 50 ký tự.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Nội dung</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" required name="message" ng-model="order.CustomerMessage" placeholder=""></textarea>
+                        <span ng-show="frmAddOrder.message.$invalid" class="invalid">Nội dung không được để trống</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-model="order.Status" ng-checked="order.Status" />Kích hoạt
+                            </label>
+                            <span ng-show="frmAddOrder.Status.$invalid" class="invalid">Phải chọn trạng thái</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button ui-sref="orders" class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmAddOrder.$invalid" class="btn btn-info">Lưu lại</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+        <div ng-if="loading">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4 loading-area">
+                <i class="fa fa-refresh fa-4x fa-spin"></i> <label class="label label-primary loading-lable">Đang tải...</label>
+            </div>
+            <div class="col-xs-4"></div>
+        </div>
+    </div>
+    <!-- /.box -->
+</section><!-- /.content -->

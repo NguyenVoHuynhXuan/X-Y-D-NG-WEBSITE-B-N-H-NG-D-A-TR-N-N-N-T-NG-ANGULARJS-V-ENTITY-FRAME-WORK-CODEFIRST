@@ -1,0 +1,25 @@
+﻿@model uStora.Web.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+<div class="form-horizontal contact-form">
+    <h4>Bạn chưa có tài khoản?
+    <a href="javascript:void()" style="font-size:12px" data-toggle="collapse" data-target="#socialLoginList">Đăng nhập bằng mạng xã hội</a></h4>
+    @{
+        var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+        if (loginProviders.Any())
+        {
+            using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                <div id="socialLoginList" class="collapse">
+                    <p>
+                        @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                            <button type="submit" class="btn btn-warning" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Đăng nhập với tài khoản @p.Caption của bạn."><i class="fa fa-@p.AuthenticationType.ToLower()"></i> @p.AuthenticationType</button>
+                        }
+                    </p>
+                </div>
+            }
+        }
+
+    }
+</div>

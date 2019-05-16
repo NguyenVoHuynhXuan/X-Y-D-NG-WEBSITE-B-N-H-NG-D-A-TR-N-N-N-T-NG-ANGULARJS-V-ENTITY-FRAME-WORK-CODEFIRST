@@ -1,0 +1,27 @@
+﻿@model IEnumerable<uStora.Web.Models.ProductCategoryViewModel>
+
+@helper GetSubMenus(IEnumerable<uStora.Web.Models.ProductCategoryViewModel> siteMenu, Nullable<int> parentID)
+{
+foreach (var i in Model.Where(a => a.ParentID.Equals(parentID)))
+{
+    var submenu = Model.Where(a => a.ParentID.Equals(i.ID)).Count();
+
+        <li class="@(submenu > 0 ? "dropdown-submenu" : "")">
+            <a href="/category/@(i.Alias)-@(i.ID).htm">@i.Name</a>
+            @if (submenu > 0)
+            {
+                <ul class="dropdown-menu">
+                    @GetSubMenus(siteMenu, i.ID)
+                </ul>
+            }
+        </li>
+}
+}
+@{
+    var menus = Model;
+    var menuParentID = menus.First().ParentID;
+}
+@if (menus != null && menus.Count() > 0)
+{
+    @GetSubMenus(menus, menuParentID)
+}

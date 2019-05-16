@@ -1,0 +1,158 @@
+﻿@model uStora.Web.Models.RegisterViewModel
+@using BotDetect.Web.Mvc;
+@{
+    ViewBag.Title = "Đăng ký thành viên.";
+    ViewBag.MetaKeyword = "Đăng ký tài khoản uStora";
+    ViewBag.MetaDescription = "Đăng ký tài khoản uStora";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var selectList = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem {Text = "Nam", Value = "Nam"},
+            new SelectListItem {Text = "Nữ", Value = "Nữ"},
+        }, "Value", "Text");
+}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Đăng ký tài khoản</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="breadcrumb-area">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 custom-breadcrumb">
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+                <li class="active">Đăng ký thành viên</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="margin-left:-600px">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post,
+            new { @class = "well form-horizontal contact-form" }))
+            {
+                <fieldset>
+                    <legend>Thông tin tài khoản</legend>
+                    <h5 class="text-danger"><span>*</span> là bắt buộc</h5>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "tên đăng nhập" })
+                                <span class="input-group-addon">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "mật khẩu" })
+                                <span class="input-group-addon">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.PasswordFor(model => model.PasswordAgain, new { @class = "form-control", placeholder = "nhập lại mật khẩu" })
+                                <span class="input-group-addon">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "email" })
+                                <span class="input-group-addon">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.TextBoxFor(model => model.Fullname, new { @class = "form-control", placeholder = "họ tên" })
+                                <span class="input-group-addon">*</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
+                                @Html.DropDownListFor(model => model.Gender, selectList, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.TextBoxFor(model => model.Birthdate, new { @class = "form-control", type = "date", placeholder = "ngày sinh" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "địa chỉ" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "số điện thoại", @type = "number" })
+                            </div>
+                        </div>
+                    </div>
+
+                    @{
+                        MvcCaptcha registerCaptcha = new MvcCaptcha("registerCaptcha");
+                    }
+                    @Html.Captcha(registerCaptcha)
+                    @Html.TextBox("CaptchaCode")
+                    <br />
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-12 control-label"></label>
+                        <div class="col-md-12 inputGroupContainer">
+                            <button type="submit" class="btn btn-warning">Hoàn tất <span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                    </div>
+                </fieldset>
+                        }
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<uStora.Web.Models.BrandViewModel>
+
+@if (uStora.Common.StringHelper.pageActive == "shop")
+{
+    foreach (var item in Model)
+    {
+        <li><a href="/shop.htm?brandid=@item.ID">@item.Name</a></li>
+    }
+}
+else
+
+if (uStora.Common.StringHelper.pageActive == "category")
+{
+    var categoryID = TempData["categoryID"];
+    var categoryAlias = TempData["categoryAlias"];
+
+    foreach (var item in Model)
+    {
+        <li><a href="/category/@categoryAlias-@(categoryID).htm?&brandid=@item.ID">@item.Name</a></li>
+    }
+}
+else
+
+if (uStora.Common.StringHelper.pageActive == "search")
+{
+    foreach (var item in Model)
+    {
+        <li><a href="/search.htm?brandid=@item.ID">@item.Name</a></li>
+    }
+}
+else
+if (uStora.Common.StringHelper.pageActive == "productbytag")
+{
+    var tagId = TempData["tagId"];
+    foreach (var item in Model)
+    {
+        <li><a href="/products/tags-@(tagId).htm?brandid=@item.ID">@item.Name</a></li>
+    }
+}
+
+

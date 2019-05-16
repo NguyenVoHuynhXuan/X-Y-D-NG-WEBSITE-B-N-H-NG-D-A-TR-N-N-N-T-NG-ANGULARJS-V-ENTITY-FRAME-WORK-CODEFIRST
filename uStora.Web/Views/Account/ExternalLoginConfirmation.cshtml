@@ -1,0 +1,60 @@
+﻿@model uStora.Web.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Xác nhận đăng ký bằng " + ViewBag.LoginProvider;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Đăng nhập hệ thống</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="breadcrumb-area">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 custom-breadcrumb">
+            <ol class="breadcrumb">
+                <li><a href="/">Trang chủ</a></li>
+                <li class="active">Đăng nhập</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+            @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <h4>Liên kết với tài khoản @ViewBag.LoginProvider của bạn.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p class="text-info">
+                    Bạn vừa chứng thực thành công với <strong>@ViewBag.LoginProvider</strong>.
+                    Xin hãy nhập tên tài khoản mà bạn muốn đăng ký trên uStora dưới đây để kết thúc quá trình login. Những lần sau bạn sẽ không phải thực hiện bước này.
+
+                </p>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-warning" value="Đăng ký" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

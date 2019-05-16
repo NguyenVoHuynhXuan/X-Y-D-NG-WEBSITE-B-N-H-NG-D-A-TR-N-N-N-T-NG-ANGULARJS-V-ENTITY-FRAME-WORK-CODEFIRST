@@ -1,0 +1,46 @@
+﻿@model IEnumerable<uStora.Web.Models.TrackOrderViewModel>
+
+@{
+    ViewBag.Title = "Cập nhật tọa độ trực tuyến với tài khoản " + User.Identity.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #gmap {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+<div class="product-big-title-area" id="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Xin chào @User.Identity.Name</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Page title area -->
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right" id="tblCartTable">
+                    <div class="woocommerce">
+                        <div id="gmap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    @Scripts.Render("~/js/liveLocation")
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzoQXEpc3J26EnYucyoyNFQsUDYL4Rpls">
+    </script>
+}
+

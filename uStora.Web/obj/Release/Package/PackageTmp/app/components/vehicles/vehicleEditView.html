@@ -1,0 +1,97 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Cập nhật xe vận chuyển
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="vehicles">Xe vận chuyển</a></li>
+        <li class="active">Cập nhật</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thông tin Xe</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmUpdateVehicle" role="form" ng-submit="UpdateVehicle()">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Tên xe</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required maxlength="100" name="name" ng-model="vehicle.Name" placeholder="tên xe" />
+                        <span ng-show="frmUpdateVehicle.name.$invalid" class="invalid">Phải nhập tên xe</span>
+                        <span ng-show="frmUpdateVehicle.name.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Hãng xe</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required maxlength="100" name="model" ng-model="vehicle.Model" placeholder="hãng xe" />
+                        <span ng-show="frmUpdateVehicle.model.$invalid" class="invalid">Phải nhập hãng xe</span>
+                        <span ng-show="frmUpdateVehicle.model.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Mã hãng xe</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required maxlength="100" name="modelId" ng-model="vehicle.ModelID" placeholder="mã hãng xe" />
+                        <span ng-show="frmUpdateVehicle.modelId.$invalid" class="invalid">Phải nhập mã hãng xe</span>
+                        <span ng-show="frmUpdateVehicle.modelId.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Biển số xe</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required maxlength="100" name="vehicleNumber" ng-model="vehicle.VehicleNumber" placeholder="biển số xe" />
+                        <span ng-show="frmUpdateVehicle.vehicleNumber.$invalid" class="invalid">Phải nhập biển số xe</span>
+                        <span ng-show="frmUpdateVehicle.vehicleNumber.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Người lái</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required maxlength="100" name="driverName" ng-model="vehicle.DriverName" placeholder="người lái" />
+                        <span ng-show="frmUpdateVehicle.driverName.$invalid" class="invalid">Phải nhập người lái</span>
+                        <span ng-show="frmUpdateVehicle.driverName.$error.maxlength" class="invalid">Chỉ nhập tối đa 100 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Mô tả ngắn</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ckeditor="ckeditorOptions" ng-maxlength="750" name="description" ng-model="vehicle.Description" placeholder="mô tả"></textarea>
+                        <span ng-show="frmUpdateVehicle.description.$error.maxlength" class="invalid">Chỉ nhập 750 ký tự.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" required ng-model="vehicle.Status" ng-checked="vehicle.Status" />Kích hoạt
+                            </label>
+                            <span ng-show="frmUpdateVehicle.status.$invalid" class="invalid">Phải chọn trạng thái</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button ui-sref="vehicles" class="btn btn-default">Hủy</button>
+                <button type="submit" ng-disabled="frmUpdateVehicle.$invalid" class="btn btn-info">Lưu lại</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+    <!-- /.box -->
+</section><!-- /.content -->

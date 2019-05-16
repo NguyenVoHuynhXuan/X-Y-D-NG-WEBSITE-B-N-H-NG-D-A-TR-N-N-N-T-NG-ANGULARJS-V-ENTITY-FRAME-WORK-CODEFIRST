@@ -1,0 +1,262 @@
+﻿@model uStora.Web.Models.ProductViewModel
+@{
+    ViewBag.Title = "Xem sản phẩm " + Model.Name;
+    ViewBag.MetaKeyword = Model.MetaKeyword;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Cửa hàng</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+                @using (Ajax.BeginForm("Detail", "Product",
+            new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging", OnFailure = "failurePaging" },
+            new { id = "frm-search" }))
+                {
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Tìm nhanh</h2>
+                        <input type="text" name="searchString" id="txtKeyword" placeholder="tìm kiếm sản phẩm...">
+                        <input type="submit" value="GO">
+                    </div>
+                    <div id="grid-list">
+                        @{ Html.RenderPartial("_AjaxProductList", Model.ListProducts); }
+                    </div>
+                            }
+
+
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <ul>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                        <li><a href="">Sony Smart TV - 2015</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="product-content-right">
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+                        @{
+                            var category = (uStora.Web.Models.ProductCategoryViewModel)ViewBag.Category;
+                            <li><a href="/category/@(category.Alias)-@(category.ID).htm">@category.Name</a></li>
+                        }
+                        <li class="active">@Model.Name</li>
+                    </ol>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="product-images">
+                                <ul id="etalage">
+                                    <li>
+                                        <a href="#">
+                                            <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                                            <img class="etalage_source_image img-responsive" src="@Model.Image" />
+                                        </a>
+                                    </li>
+                                    @{
+                                        var images = (List<string>)ViewBag.MoreImages;
+                                        if (images.Count > 0)
+                                        {
+                                            foreach (var img in images)
+                                            {
+                                                <li>
+                                                    <img class="etalage_thumb_image img-responsive" src="@img" />
+                                                    <img class="etalage_source_image img-responsive" src="@img" />
+                                                </li>
+                                            }
+                                        }
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name">@Model.Name</h2>
+                                <div class="product-inner-price">
+                                    @if (Model.PromotionPrice.HasValue && Model.PromotionPrice.Value != 0)
+                                    {
+                                        <ins>@Model.PromotionPrice.Value.ToString("c0")</ins>
+                                        <del>@Model.Price.ToString("c0")</del>
+                                    }
+                                    else
+                                    {
+                                        <ins>@Model.Price.ToString("c0")</ins>
+                                    }
+                                </div>
+
+                                <form action="" method="post" class="cart">
+                                    <div class="input-group">
+                                        @if (Model.Quantity > 0)
+                                        {
+                                            <p>Số lượng trong kho: <span class="badge text-success">@Model.Quantity</span></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-danger">Hết hàng.</p>
+                                        }
+                                        <p>Lượt xem: <span class="badge text-primary">@Model.ViewCount</span></p>
+                                        <button id="btnAddToCart" data-id="@Model.ID" type="submit">Thêm vào giỏ</button>
+                                    </div>
+                                </form>
+                                @{
+                                    var tags = (IEnumerable<uStora.Web.Models.TagViewModel>)ViewBag.Tags;
+                                    int i = 1;
+                                }
+                                <div class="product-inner-category">
+                                    <p>
+                                        Danh mục:
+                                        <a href="/category/@(category.Alias)-@(category.ID).htm">@category.Name</a>.
+
+                                        @if (tags.Count() > 0)
+                                        {
+                                            <span>Tags:</span>
+                                            foreach (var tag in tags)
+                                            {
+                                                if (i == tags.Count())
+                                                {
+                                                    <a href="/products/tags-@(tag.ID).htm">@tag.Name.ToLower().</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/products/tags-@(tag.ID).htm">@tag.Name.ToLower(),</a>
+                                                }
+                                                i++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Tags:</span>
+                                            <a href="javascripts:void();" class="text-center text-danger no-underline">Không có thẻ gán cho sản phẩm này.</a>
+                                        }
+                                    </p>
+                                </div>
+
+                                <div role="tabpanel">
+                                    <ul class="product-tab" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mô tả</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đánh giá</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                            <h2>Mô tả sản phẩm</h2>
+                                            <p>@Html.Raw(Model.Description)</p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="profile">
+                                            <h2>Đánh giá</h2>
+                                            <div class="submit-review">
+                                                <p><label for="name">Tên</label> <input name="name" type="text"></p>
+                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                                <div class="rating-chooser">
+                                                    <p>Đánh giá của bạn</p>
+
+                                                    <div class="rating-wrap-post">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p><label for="review">Nhận xét</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                <p><input type="submit" value="Hoàn tất"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        var relatedProducts = (IEnumerable<uStora.Web.Models.ProductViewModel>)ViewBag.RelatedProducts;
+                    }
+                    @if (relatedProducts.Count() > 0)
+                    {
+                        <div class="related-products-wrapper">
+                            <h2 class="related-products-title">Sản phẩm liên quan</h2>
+                            <div class="related-products-carousel">
+                                @foreach (var rl_product in relatedProducts)
+                                {
+                                    <div class="single-product">
+                                        <div class="product-f-image">
+                                            <img src="@rl_product.Image" alt="@rl_product.Name">
+                                            <div class="product-hover">
+                                                <a href="#" class="action-box">
+                                                    <i class="fa fa-shopping-cart add-to-cart" id="btnAddToCart" data-id="@rl_product.ID" data-toggle="tooltip" title="Thêm vào giỏ"></i>
+                                                    @if (Request.IsAuthenticated)
+                                                    {
+                                                        <i class="fa fa-heart" id="btnAddWishlist" data-id="@rl_product.ID" data-toggle="tooltip" title="Yêu thích"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-heart" id="btnAddWishlistDisable" data-id="@rl_product.ID" data-toggle="tooltip" title="Yêu thích"></i>
+                                                    }
+                                                </a>
+                                                <a href="/product/@(rl_product.Alias)-@(rl_product.ID).htm" data-toggle="tooltip" data-html="true" title="@rl_product.Description" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                            </div>
+                                        </div>
+
+                                        <h2><a href="/product/@(rl_product.Alias)-@(rl_product.ID).htm">@rl_product.Name</a></h2>
+
+                                        <div class="product-carousel-price">
+                                            @if (rl_product.PromotionPrice.HasValue && rl_product.PromotionPrice.Value != 0)
+                                            {
+                                                <ins>@rl_product.PromotionPrice.Value.ToString("c0")</ins>
+                                                <del>@rl_product.Price.ToString("c0")</del>
+                                            }
+                                            else
+                                            {
+                                                <ins>@rl_product.Price.ToString("c0")</ins>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/js/etalage")
+    <script src="~/Assets/Client/js/ajaxPaging.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#etalage').etalage({
+                thumb_image_width: 300,
+                thumb_image_height: 300,
+                source_image_width: 500,
+                source_image_height: 550,
+                show_hint: true,
+                click_callback: function (image_anchor, instance_id) {
+                    @*alert("Bạn đang xem " +@Model.Name +".");*@
+                }
+            });
+
+
+        });
+    </script>
+}

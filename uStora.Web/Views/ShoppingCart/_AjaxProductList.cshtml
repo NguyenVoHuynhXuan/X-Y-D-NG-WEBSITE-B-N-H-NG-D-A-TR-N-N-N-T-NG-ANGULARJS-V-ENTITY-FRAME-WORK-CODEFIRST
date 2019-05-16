@@ -1,0 +1,60 @@
+﻿@using MvcPaging
+@model IPagedList<uStora.Web.Models.ProductViewModel>
+<div class="single-sidebar">
+    <h2 class="sidebar-title">Danh sách sản phẩm</h2>
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="thubmnail-recent">
+                <img src="@item.Image" class="recent-thumb" alt="">
+                <h2><a href="/product/@(item.Alias)-@(item.ID).htm">@item.Name</a></h2>
+                <div class="product-sidebar-price">
+                    @if (item.PromotionPrice.HasValue && item.PromotionPrice.Value != 0)
+                    {
+                        <ins>@item.PromotionPrice.Value.ToString("c0")</ins>
+                        <del>@item.Price.ToString("c0")</del>
+                    }
+                    else
+                    {
+                        <ins>@item.Price.ToString("c0")</ins>
+                    }
+                </div>
+            </div>
+        }
+        if (Model.TotalItemCount > Model.PageSize)
+        {
+            <div class="pager">
+                @Html.Raw(Ajax.Pager(
+            new Options
+            {
+                PageSize = Model.PageSize,
+                TotalItemCount = Model.TotalItemCount,
+                CurrentPage = Model.PageNumber,
+                TooltipTitles = new TooltipTitles() { First = "Trang đầu", Last = "Trang cuối", Next = "Trang kế tiếp", Previous = "Trang sau", Page = "Trang {0}." },
+                ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+                Size = Size.normal,
+                Alignment = Alignment.centered,
+                IsShowControls = true,
+                IsShowFirstLast = true
+            },
+            new AjaxOptions
+            {
+                UpdateTargetId = "grid-list",
+                OnBegin = "beginPaging",
+                OnSuccess = "successPaging",
+                OnFailure = "failurePaging"
+            }, new { controller = "ShoppingCart", action = "Index", searchString = ViewBag.SearchString }))
+
+            </div>
+        }
+    }
+    else
+    {
+        <h4 class="text-danger">Không tìm thấy!!!</h4>
+    }
+
+</div>
+@section scripts{
+    @Scripts.Render("~/js/bootstrap")
+}

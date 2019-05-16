@@ -1,0 +1,28 @@
+﻿
+.pagination-sm{
+    cursor:pointer;
+}
+.invalid{
+    color:red;
+}
+.loading-lable{
+    margin-top: 23px;
+    margin-left: 7px;
+    position: absolute;
+}
+.loading-area{
+    position: relative;
+    z-index:999;
+}
+#loading-bar .bar {
+    background: #33ba3a;
+    height: 4px;
+}
+#loading-bar-spinner .spinner-icon {
+    width: 18px;
+    height: 18px;
+    border: solid 4px transparent;
+    border-top-color: #cadd22;
+    border-left-color: #cadd22;
+    border-radius: 10px;
+}

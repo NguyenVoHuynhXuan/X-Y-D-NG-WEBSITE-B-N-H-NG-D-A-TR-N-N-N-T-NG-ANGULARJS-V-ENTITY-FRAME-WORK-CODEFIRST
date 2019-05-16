@@ -1,0 +1,37 @@
+﻿
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>u</b>Stora</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Đăng nhập hệ thống</p>
+
+        <form role="form" method="post" name="frmAdminLogin" novalidate ng-submit="loginSubmit()">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" name="userName" required ng-model="loginData.userName" placeholder="Tài khoản">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <div ng-show="frmAdminLogin.$submitted">
+                    <span ng-show="frmAdminLogin.userName.$invalid" class="invalid">Phải điền tên đăng nhập</span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="password" required class="form-control" ng-model="loginData.password" placeholder="Mật khẩu">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <div ng-show="frmAdminLogin.$submitted">
+                    <span ng-show="frmAdminLogin.password.$invalid" class="invalid">Phải nhập mật khẩu</span>
+                </div>
+                
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit"  class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->

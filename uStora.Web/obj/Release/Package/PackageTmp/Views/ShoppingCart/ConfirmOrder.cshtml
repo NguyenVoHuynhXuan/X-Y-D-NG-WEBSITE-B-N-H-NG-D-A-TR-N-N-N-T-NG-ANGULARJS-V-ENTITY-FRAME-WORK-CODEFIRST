@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Kết quả giao dịch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="product-big-title-area" id="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>@ViewBag.Title</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Page title area -->
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right" id="tblCartTable">
+                    <div class="woocommerce">
+                        @{
+                            var success = (bool)ViewBag.IsSuccess;
+                        }
+                        @if (success)
+                        {
+                            <div class="alert alert-success">@ViewBag.Result Vui lòng <a href="/">click vào đây</a> để về trang chủ.</div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">@ViewBag.Result. Vui lòng <a href="/">click vào đây</a> để về trang chủ.</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

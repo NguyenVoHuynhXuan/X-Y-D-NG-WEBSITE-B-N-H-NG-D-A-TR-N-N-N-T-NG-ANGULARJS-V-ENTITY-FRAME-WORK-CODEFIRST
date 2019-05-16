@@ -1,0 +1,114 @@
+﻿@model uStora.Web.Models.IndexViewModel
+@{
+    ViewBag.Title = "Tài khoản của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = (uStora.Web.Models.ApplicationUserViewModel)ViewBag.User;
+}
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>@ViewBag.Title</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="breadcrumb-area">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 custom-breadcrumb">
+            <ol class="breadcrumb">
+                <li><a href="/"> <i class="fa fa-home"></i> Trang chủ</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right">
+                    <div class="woocommerce">
+                        @if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>@ViewBag.StatusMessage</strong>
+                            </div>
+                        }
+                        <div class="table-responsive">
+                            <h4>Thông tin tài khoản - @user.FullName</h4>
+                            <hr />
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Họ tên</td>
+                                        <td>@user.FullName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tên đăng nhập</td>
+                                        <td>@user.UserName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>@user.Email</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giới tính</td>
+                                        <td>@user.Gender</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ngày sinh</td>
+                                        <td>
+                                            @{
+                                                var birthDate = "";
+                                                birthDate = user.BirthDay.ToShortDateString();
+                                            }
+
+                                            
+
+                                            @birthDate
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ngày tham gia</td>
+                                        <td>
+                                            @{
+                                                var joinedDate = "";
+                                            }
+                                            @if (user.CreatedDate.HasValue)
+                                            {
+                                                joinedDate = user.CreatedDate.Value.ToShortDateString();
+                                            }
+                                            @joinedDate
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mật khẩu</td>
+                                        <td>
+                                            [
+                                            @if (Model.HasPassword)
+                                            {
+                                                @Html.ActionLink("Đổi mật khẩu", "ChangePassword")
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Thêm", "SetPassword")
+                                            }
+                                            ]
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

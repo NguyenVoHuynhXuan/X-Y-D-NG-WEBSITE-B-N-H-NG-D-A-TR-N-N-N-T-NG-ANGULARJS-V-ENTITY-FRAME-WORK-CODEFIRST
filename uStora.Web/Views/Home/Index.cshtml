@@ -1,0 +1,241 @@
+﻿@model uStora.Web.Models.HomeViewModel
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.MetaKeyword = Model.MetaKeyword;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section homePage{
+    <div class="slider-area">
+        <!-- Slider -->
+        <div class="block-slider block-slider4">
+            <ul class="" id="bxslider-home4">
+                @foreach (var slide in Model.Slides)
+                {
+                    <li>
+                        <img src="@slide.Image" alt="@slide.Name">
+                        <div class="caption-group">
+                            <h2 class="caption title">
+                                @Html.Raw(slide.Name)
+
+                            </h2>
+                            <h4 class="caption subtitle">@Html.Raw(slide.Description)</h4>
+                            <a class="caption button-radius" href="@slide.URL"><span class="icon"></span>Vào mua ngay</a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- ./Slider -->
+    </div> <!-- End slider area -->
+
+    <div class="promo-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6" data-toggle="tooltip" title="Nhanh chóng giao hàng trong vòng 2-3 ngày">
+                    <div class="single-promo promo1">
+                        <i class="fa fa-refresh"></i>
+                        <p>Nhanh chóng</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" data-toggle="tooltip" title="Không mất phí chuyển hàng">
+                    <div class="single-promo promo2">
+                        <i class="fa fa-truck"></i>
+                        <p>Ship hàng miễn phí</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" data-toggle="tooltip" title="Thanh toán tận nơi, đúng thời hạn">
+                    <div class="single-promo promo3">
+                        <i class="fa fa-lock"></i>
+                        <p>Thanh toán tận nơi</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" data-toggle="tooltip" title="Sản phẩm mới được cập nhật liên tục">
+                    <div class="single-promo promo4">
+                        <i class="fa fa-gift"></i>
+                        <p>Nhiều sản phẩm mới</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End promo area -->
+}
+
+<div class="maincontent-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="latest-product">
+                    <h2 class="section-title">Xem nhanh sản phẩm</h2>
+                    <div class="product-carousel">
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="@product.Image" class="disabled" alt="@product.Name">
+                                    <div class="product-hover">
+                                        <a href="#" class="action-box">
+                                            <i class="fa fa-shopping-cart add-to-cart" id="btnAddToCart" data-id="@product.ID" data-toggle="tooltip" title="Thêm vào giỏ"></i>
+                                            @if (Request.IsAuthenticated)
+                                            {
+                                                <i class="fa fa-heart" id="btnAddWishlist" data-id="@product.ID" data-toggle="tooltip" title="Yêu thích"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-heart" id="btnAddWishlistDisable" data-id="@product.ID" data-toggle="tooltip" title="Yêu thích"></i>
+                                            }
+                                        </a>
+
+                                        <a href="/product/@(product.Alias)-@(product.ID).htm" data-toggle="tooltip" data-html="true" title="@product.Description" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                    </div>
+                                </div>
+                                <h2><a href="/product/@(product.Alias)-@(product.ID).htm">@product.Name</a></h2>
+
+                                <div class="product-carousel-price">
+                                    @if (product.PromotionPrice.HasValue && product.PromotionPrice.Value != 0)
+                                    {
+                                        <ins>@product.PromotionPrice.Value.ToString("c0")</ins>
+                                        <del>@product.Price.ToString("c0")</del>
+                                    }
+                                    else
+                                    {
+                                        <ins>@product.Price.ToString("c0")</ins>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End main content area -->
+
+
+@section brand{
+    <div class="brands-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="brand-wrapper">
+                        <div class="brand-list">
+                            @foreach (var brand in Model.Brands)
+                            {
+                                <img src="@brand.Image" alt="">
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End brands area -->
+}
+
+@section productStatistic{
+    <div class="product-widget-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">Bán chạy</h2>
+                        <a href="/shop.htm" class="wid-view-more">Xem tất cả</a>
+                        @foreach (var product in Model.TopSaleProducts)
+                        {
+                            <div class="single-wid-product">
+                                <a href="/product/@(product.Alias)-@(product.ID).htm"><img src="@product.Image" alt="" class="product-thumb"></a>
+                                <h2><a href="/product/@(product.Alias)-@(product.ID).htm">@product.Name</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    @if (product.PromotionPrice.HasValue && product.PromotionPrice.Value != 0)
+                                    {
+                                        <ins>@product.PromotionPrice.Value.ToString("c0")</ins>
+                                        <del>@product.Price.ToString("c0")</del>
+                                    }
+                                    else
+                                    {
+                                        <ins>@product.Price.ToString("c0")</ins>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">Xem nhiều</h2>
+                        <a href="/shop.htm" class="wid-view-more">Xem tất cả</a>
+                        @foreach (var product in Model.TopViews)
+                        {
+                            <div class="single-wid-product">
+                                <a href="/product/@(product.Alias)-@(product.ID).htm"><img src="@product.Image" alt="" class="product-thumb"></a>
+                                <h2><a href="/product/@(product.Alias)-@(product.ID).htm">@product.Name</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    @if (product.PromotionPrice.HasValue && product.PromotionPrice.Value != 0)
+                                    {
+                                        <ins>@product.PromotionPrice.Value.ToString("c0")</ins>
+                                        <del>@product.Price.ToString("c0")</del>
+                                    }
+                                    else
+                                    {
+                                        <ins>@product.Price.ToString("c0")</ins>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-product-widget">
+                        <h2 class="product-wid-title">Mới</h2>
+                        <a href="/shop.htm" class="wid-view-more">Xem tất cả</a>
+                        @foreach (var product in Model.LatestProducts)
+                        {
+                            <div class="single-wid-product">
+                                <a href="/product/@(product.Alias)-@(product.ID).htm"><img src="@product.Image" alt="" class="product-thumb"></a>
+                                <h2><a href="/product/@(product.Alias)-@(product.ID).htm">@product.Name</a></h2>
+                                <div class="product-wid-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-wid-price">
+                                    @if (product.PromotionPrice.HasValue && product.PromotionPrice.Value != 0)
+                                    {
+                                        <ins>@product.PromotionPrice.Value.ToString("c0")</ins>
+                                        <del>@product.Price.ToString("c0")</del>
+                                    }
+                                    else
+                                    {
+                                        <ins>@product.Price.ToString("c0")</ins>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End product widget area -->
+}

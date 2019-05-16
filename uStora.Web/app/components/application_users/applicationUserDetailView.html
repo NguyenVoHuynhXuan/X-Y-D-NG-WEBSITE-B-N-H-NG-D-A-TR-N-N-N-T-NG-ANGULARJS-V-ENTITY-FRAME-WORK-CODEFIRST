@@ -1,0 +1,58 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Chi tiết tài khoản
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="application_users">Tài khoản người dùng</a></li>
+        <li class="active">Chi tiết</li>
+    </ol>
+</section><!-- Main content -->
+<section class="content">
+
+    <!-- row -->
+    <div class="row">
+        <div class="container" style="margin-bottom: 20px">
+        </div>
+        <div class="col-md-12">
+            <!-- The time line -->
+            <ul class="timeline">
+                <!-- timeline time label -->
+                <li class="time-label">
+                    <span class="bg-red">
+                        {{ account.CreatedDate | date:'dd/MM/yyyy hh:mm:ss'}}
+                    </span>
+                </li>
+                <!-- /.timeline-label -->
+                <!-- timeline item -->
+                <li>
+                    <i class="fa fa-comment-o bg-blue"></i>
+
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{account.CreatedDate | timeAgo}}</span>
+
+                        <h3 class="timeline-header"><a href="javascript:void()">{{account.FullName}} </a></h3>
+
+                        <div class="timeline-body">
+                            Email: {{account.Email}} <br />
+                            Điện thoại : {{ account.PhoneNumber}}<br />
+                            Địa chỉ : {{ account.Address}}<br />
+                            Giới tính : {{ account.Gender}}<br />
+                        </div>
+                    </div>
+                </li>
+                <!-- END timeline item -->
+            </ul>
+            <div ng-if="loading">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-4 loading-area">
+                    <i class="fa fa-refresh fa-4x fa-spin"></i> <label class="label label-primary loading-lable">Đang tải...</label>
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
